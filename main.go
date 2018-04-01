@@ -15,7 +15,7 @@ func main() {
 func newApp() *cli.App {
 	app := cli.NewApp()
 	app.Name = "myhead"
-	app.Usage = "myhead command"
+  app.Usage = "myhead command"
 	app.Version = Version
 	app.Author = "yoichi watanabe"
 	app.Action = doMyhead
