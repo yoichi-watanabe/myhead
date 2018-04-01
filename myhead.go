@@ -61,9 +61,10 @@ func doMyhead(c *cli.Context) error {
 			fmt.Printf("==> %s <==\n", c.Args().Get(i))
 		}
 
+		// バイト数が未指定(0) だった場合、指定行数分読み出し
+		// バイト数が指定されていた場合、該当バイト数分読み出し
 		numberOfChar, _ := strconv.Atoi(argsChar)
 		if numberOfChar == 0 {
-			// バイト数が未指定の場合、行ごとに読み出し
 			scanner := bufio.NewScanner(file)
 			j := 0
 			for j < numberOfLines && scanner.Scan() {
@@ -71,9 +72,7 @@ func doMyhead(c *cli.Context) error {
 				fmt.Println(line)
 				j++
 			}
-
 		} else {
-			// バイト数が指定されていた場合、該当バイト数分読み出し
 			buf := make([]byte, numberOfChar)
 			file.Read(buf)
 
