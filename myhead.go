@@ -21,10 +21,16 @@ var myHeadFlags = []cli.Flag{
 		Usage:       "ファイル名を表示します",
 		Destination: &shouldShowFileName,
 	},
+	cli.BoolFlag{
+		Name:        "quiet, q",
+		Usage:       "ファイル名を表示しません",
+		Destination: &shouldHiddenFileName,
+	},
 }
 
 var argsNum string
 var shouldShowFileName bool
+var shouldHiddenFileName bool
 var hasMultiplefiles bool
 
 func doMyhead(c *cli.Context) error {
@@ -46,7 +52,7 @@ func doMyhead(c *cli.Context) error {
 		}
 		defer file.Close()
 
-		if shouldShowFileName || hasMultiplefiles {
+		if (shouldShowFileName || hasMultiplefiles) && !shouldHiddenFileName {
 			fmt.Printf("==> %s <==\n", c.Args().Get(i))
 		}
 
@@ -58,6 +64,7 @@ func doMyhead(c *cli.Context) error {
 			fmt.Println(line)
 			j++
 		}
+		fmt.Printf("\n")
 
 	}
 
